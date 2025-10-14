@@ -9,7 +9,6 @@ class Server:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((server, port))
         self.sock.listen()
-        self.connections: list[socket.socket] = []
         self.print_lock = Lock()
         print(f"Sever listening on {server}:{port}")
 
@@ -18,7 +17,6 @@ class Server:
             conn, addr = self.sock.accept()
             with self.print_lock:
                 print(f"Accepted Connection from {addr}")
-            self.connections.append(conn)
             thread = threading.Thread(target=self.process_connection, args=(conn,))
             thread.start()
 
@@ -39,8 +37,6 @@ class Server:
 
     def close(self) -> None:
         self.sock.close()
-        for conn in self.connections:
-            conn.close()
 
 
 def main() -> None:
