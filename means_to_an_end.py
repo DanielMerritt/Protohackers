@@ -1,6 +1,5 @@
 import socket
 import threading
-from threading import Lock
 from dataclasses import dataclass
 import struct
 
@@ -17,7 +16,7 @@ class Server:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((server, port))
         self.sock.listen()
-        self.print_lock = Lock()
+        self.print_lock = threading.Lock()
         print(f"Sever listening on {server}:{port}")
 
     def handle_connections(self) -> None:
