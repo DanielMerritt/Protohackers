@@ -96,7 +96,7 @@ class Server:
 
         except (socket.timeout, ConnectionResetError, BrokenPipeError) as e:
             with self.print_lock:
-                print(f"Send failure: {e}")
+                print(f"Connection Error: {e}")
 
         finally:
             conn.close()
@@ -119,7 +119,7 @@ class Server:
                 conn.sendall(message.encode() + b"\n")
         except (socket.timeout, ConnectionResetError, BrokenPipeError):
             with self.print_lock:
-                print("Connection timed out")
+                print("Send failure: {e}")
 
     def close(self) -> None:
         try:
