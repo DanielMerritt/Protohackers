@@ -19,7 +19,7 @@ class Server:
         self.sock.bind((server, port))
         self.sock.listen()
         self.print_lock = threading.Lock()
-        print(f"Sever listening on {server}:{port}")
+        print(f"Server listening on {server}:{port}")
 
     def handle_connections(self) -> None:
         while True:
