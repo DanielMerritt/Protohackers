@@ -48,7 +48,6 @@ class Server:
         except (socket.timeout, ConnectionResetError, BrokenPipeError) as e:
             with self.print_lock:
                 print(f"Connection Error: {e}")
-
         finally:
             try:
                 conn.shutdown(socket.SHUT_RDWR)
